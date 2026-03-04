@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>IAN KIZER // PROFILE v2026</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet"/>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --beige: #F4ECD8;
+    --dark-beige: #D4C4A8;
+    --screen-dark: #080c10;
+    --screen-glow: #00ff41;
+    --cyan: #00d9ff;
+    --magenta: #ff00ff;
+    --amber: #ffb000;
+    --blue: #3b82f6;
+    --purple: #8b5cf6;
+    --green: #10b981;
+    --red: #ef4444;
+    --slate: rgba(15,23,42,0.95);
+  }
+
+  @media print {
+    body { background: white !important; }
+    .monitor-frame { box-shadow: none !important; max-width: 100% !important; width: 100% !important; padding: 10px !important; border-radius: 0 !important; }
+    .crt-screen { min-height: auto !important; }
+    .crt-screen::before, .crt-screen::after, .scanline { display: none !important; }
+    .modern-ui { border-radius: 0 !important; }
+  }
+
+  body {
+    font-family: 'IBM Plex Mono', monospace;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 30px 20px;
+  }
+
+  /* Monitor Frame */
+  .monitor-frame {
+    background: var(--beige);
+    border-radius: 20px 20px 40px 40px;
+    padding: 44px 28px 64px;
+    box-shadow:
+      0 30px 80px rgba(0,0,0,0.5),
+      inset 0 2px 4px rgba(255,255,255,0.5),
+      inset 0 -2px 4px rgba(0,0,0,0.2);
+    position: relative;
+    max-width: 1000px;
+    width: 100%;
+  }
+
+  .monitor-frame::before {
+    content: 'PERSONNEL FILE // IAN.KIZER.PROFILE v2026';
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 7px;
+    color: #7a6a50;
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+
+  .monitor-frame::after {
+    content: '';
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 10px;
+    background: linear-gradient(90deg, transparent, var(--dark-beige), transparent);
+    border-radius: 5px;
+  }
+
+  /* Vent holes */
+  .monitor-vents {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+  }
+  .vent-hole {
+    width: 4px;
+    height: 4px;
+    background: #b8a88a;
+    border-radius: 50%;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+  }
+
+  /* CRT Screen */
+  .crt-screen {
+    background: var(--screen-dark);
+    border-radius: 8px;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      inset 0 0 100px rgba(0,255,65,0.04),
+      inset 0 0 30px rgba(0,255,65,0.08);
+  }
+
+  /* Scanlines */
+  .crt-screen::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0,255,65,0.025) 0px,
+      transparent 1px,
+      transparent 2px,
+      rgba(0,255,65,0.025) 3px
+    );
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  /* Vignette */
+  .crt-screen::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.5) 100%);
+    pointer-events: none;
+    z-index: 99;
+  }
+
+  .scanline {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(transparent, rgba(0,255,65,0.08), transparent);
+    animation: scanline 10s linear infinite;
+    pointer-events: none;
+    z-index: 101;
+  }
+
+  @keyframes scanline {
+    0% { transform: translateY(-10px); }
+    100% { transform: translateY(100vh); }
+  }
+
+  .screen-content {
+    position: relative;
+    z-index: 10;
+    padding: 0;
+  }
+
+  /* ── TOP HEADER BAR ── */
+  .header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 22px;
+    background: rgba(0,0,0,0.5);
+    border-bottom: 1px solid rgba(59,130,246,0.2);
+  }
+
+  .header-title {
+    font-family: 'VT323', monospace;
+    color: var(--screen-glow);
+    font-size: 28px;
+    letter-spacing: 4px;
+    text-shadow: 0 0 10px var(--screen-glow), 0 0 20px var(--screen-glow);
+  }
+
+  .header-meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 11px;
+    color: #64748b;
+  }
+
+  .status-badge {
+    background: rgba(16,185,129,0.15);
+    color: #10b981;
+    border: 1px solid rgba(16,185,129,0.3);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 6px;
+    letter-spacing: 1px;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .main-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 600px;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    background: rgba(0,0,0,0.35);
+    border-right: 1px solid rgba(59,130,246,0.15);
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .profile-box {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0,255,65,0.1);
+  }
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 12px;
+    border: 2px solid var(--screen-glow);
+    border-radius: 4px;
+    box-shadow: 0 0 15px rgba(0,255,65,0.3);
+    background: rgba(0,255,65,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 22px;
+    color: var(--screen-glow);
+    text-shadow: 0 0 10px var(--screen-glow);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .avatar::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg, rgba(0,255,65,0.05) 0px, transparent 1px, transparent 3px
+    );
+  }
+
+  .profile-name {
+    font-family: 'VT323', monospace;
+    color: var(--screen-glow);
+    font-size: 20px;
+    letter-spacing: 3px;
+    text-shadow: 0 0 8px var(--screen-glow);
+    margin-bottom: 4px;
+  }
+
+  .profile-title {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--cyan);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 1.5;
+  }
+
+  .sidebar-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .sidebar-heading {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 7px;
+    color: var(--amber);
+    letter-spacing: 2px;
+    text-shadow: 0 0 8px var(--amber);
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(255,176,0,0.2);
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    color: #94a3b8;
+    line-height: 1.4;
+  }
+
+  .contact-icon {
+    color: var(--screen-glow);
+    font-size: 12px;
+    flex-shrink: 0;
+    text-shadow: 0 0 6px var(--screen-glow);
+  }
+
+  .skill-row {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .skill-label {
+    font-size: 9px;
+    color: #94a3b8;
+    font-weight: 500;
+  }
+
+  .skill-bar-track {
+    height: 4px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 2px;
+    border: 1px solid rgba(59,130,246,0.2);
+    overflow: hidden;
+  }
+
+  .skill-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blue), var(--cyan));
+    border-radius: 2px;
+    box-shadow: 0 0 6px rgba(0,217,255,0.5);
+    animation: barLoad 1.2s ease-out both;
+    transform-origin: left;
+  }
+
+  @keyframes barLoad {
+    from { width: 0 !important; }
+  }
+
+  .cert-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    background: rgba(59,130,246,0.08);
+    border: 1px solid rgba(59,130,246,0.2);
+    border-radius: 4px;
+    font-size: 9px;
+    color: #cbd5e1;
+    line-height: 1.4;
+  }
+
+  .cert-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .lang-tag {
+    display: inline-block;
+    padding: 2px 7px;
+    background: rgba(139,92,246,0.15);
+    border: 1px solid rgba(139,92,246,0.3);
+    color: #a78bfa;
+    border-radius: 3px;
+    font-size: 9px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .lang-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main-content {
+    background: rgba(0,0,0,0.2);
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  /* Objective Banner */
+  .objective-box {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(0,255,65,0.15);
+    border-left: 3px solid var(--screen-glow);
+    border-radius: 4px;
+    padding: 12px 16px;
+  }
+
+  .objective-prompt {
+    font-family: 'VT323', monospace;
+    color: var(--screen-glow);
+    font-size: 14px;
+    opacity: 0.6;
+    margin-bottom: 4px;
+    text-shadow: 0 0 6px var(--screen-glow);
+  }
+
+  .objective-text {
+    font-size: 11.5px;
+    color: #94a3b8;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* Section Headers */
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-tag {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 7px;
+    color: var(--blue);
+    letter-spacing: 2px;
+    text-shadow: 0 0 8px rgba(59,130,246,0.5);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(59,130,246,0.4), transparent);
+  }
+
+  /* Experience Cards */
+  .exp-card {
+    background: linear-gradient(135deg, rgba(30,41,59,0.8) 0%, rgba(51,65,85,0.6) 100%);
+    border: 1px solid rgba(71,85,105,0.5);
+    border-radius: 6px;
+    padding: 14px 16px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .exp-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 20%; bottom: 20%;
+    width: 2px;
+    background: var(--blue);
+    border-radius: 1px;
+    box-shadow: 0 0 8px rgba(59,130,246,0.6);
+  }
+
+  .exp-card:hover {
+    border-color: rgba(59,130,246,0.4);
+  }
+
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .exp-role {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: #f1f5f9;
+    letter-spacing: 0.5px;
+  }
+
+  .exp-dates {
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    color: var(--amber);
+    text-shadow: 0 0 8px rgba(255,176,0,0.4);
+    white-space: nowrap;
+  }
+
+  .exp-company {
+    font-size: 10px;
+    color: var(--cyan);
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    text-shadow: 0 0 6px rgba(0,217,255,0.3);
+  }
+
+  .exp-desc {
+    font-size: 10.5px;
+    color: #94a3b8;
+    line-height: 1.7;
+    margin-bottom: 8px;
+    font-weight: 300;
+  }
+
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .exp-bullets li {
+    font-size: 10px;
+    color: #7c8fa8;
+    line-height: 1.6;
+    padding-left: 16px;
+    position: relative;
+    font-weight: 300;
+  }
+
+  .exp-bullets li::before {
+    content: '›';
+    position: absolute;
+    left: 4px;
+    color: var(--blue);
+    font-size: 14px;
+    line-height: 1;
+    top: 1px;
+  }
+
+  .exp-sub {
+    margin-top: 6px;
+    font-size: 9px;
+    color: #475569;
+    font-style: italic;
+  }
+
+  /* Tag chips for tools */
+  .tool-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 8px;
+  }
+
+  .tool-tag {
+    padding: 2px 7px;
+    background: rgba(15,185,129,0.08);
+    border: 1px solid rgba(16,185,129,0.2);
+    color: #6ee7b7;
+    border-radius: 3px;
+    font-size: 8.5px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* Footer / Status Bar */
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 22px;
+    background: rgba(0,0,0,0.5);
+    border-top: 1px solid rgba(59,130,246,0.1);
+    font-size: 9px;
+    color: #334155;
+  }
+
+  .status-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .status-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--screen-glow);
+    box-shadow: 0 0 6px var(--screen-glow);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  .cursor-blink {
+    animation: blink 1s infinite;
+    color: var(--screen-glow);
+  }
+</style>
+</head>
+<body>
+
+<div class="monitor-frame">
+  <div class="crt-screen">
+    <div class="scanline"></div>
+    <div class="screen-content">
+
+      <!-- Header Bar -->
+      <div class="header-bar">
+        <div class="header-title">IAN KIZER<span class="cursor-blink">_</span></div>
+        <div class="header-meta">
+          <span>PROFILE v2026</span>
+          <div class="status-badge">AVAILABLE</div>
+        </div>
+      </div>
+
+      <!-- Main Layout -->
+      <div class="main-layout">
+
+        <!-- ── SIDEBAR ── -->
+        <div class="sidebar">
+
+          <!-- Avatar -->
+          <div class="profile-box">
+            <div class="avatar">IK</div>
+            <div class="profile-name">IAN KIZER</div>
+            <div class="profile-title">BUSINESS SYSTEMS &<br/>INTEGRATIONS ANALYST</div>
+          </div>
+
+          <!-- Contact -->
+          <div class="sidebar-section">
+            <div class="sidebar-heading">// CONTACT</div>
+            <div class="contact-item">
+              <span class="contact-icon">✉</span>
+              <span>ian.kizer94@gmail.com</span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">☏</span>
+              <span>(865) 719-9053</span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">⬡</span>
+              <span>linkedin.com/in/iankizer</span>
+            </div>
+          </div>
+
+          <!-- Skills -->
+          <div class="sidebar-section">
+            <div class="sidebar-heading">// SYSTEMS</div>
+            <div class="skill-row">
+              <div class="skill-label">Integrations & Automation</div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label">Systems Administration</div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label">Business Process Mgmt</div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" style="width:92%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label">Data Analytics</div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label">Technical Writing</div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label">Project Management</div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%"></div></div>
+            </div>
+          </div>
+
+          <!-- Scripting -->
+          <div class="sidebar-section">
+            <div class="sidebar-heading">// SCRIPTING</div>
+            <div class="lang-tags">
+              <span class="lang-tag">Ruby</span>
+              <span class="lang-tag">JavaScript</span>
+              <span class="lang-tag">JSON</span>
+              <span class="lang-tag">SQL</span>
+              <span class="lang-tag">SoQL</span>
+              <span class="lang-tag">HTML</span>
+              <span class="lang-tag">CSS</span>
+            </div>
+          </div>
+
+          <!-- Certifications -->
+          <div class="sidebar-section">
+            <div class="sidebar-heading">// CERTIFIED</div>
+            <div class="cert-badge">
+              <span class="cert-icon">⚙</span>
+              <span>Workato Certified ×3</span>
+            </div>
+            <div class="cert-badge">
+              <span class="cert-icon">⚙</span>
+              <span>Boomi Certified ×2</span>
+            </div>
+            <div class="cert-badge">
+              <span class="cert-icon">◈</span>
+              <span>Google IT Support Professional</span>
+            </div>
+            <div class="cert-badge">
+              <span class="cert-icon">◈</span>
+              <span>Google Project Management</span>
+            </div>
+            <div class="cert-badge">
+              <span class="cert-icon">◈</span>
+              <span>Google Data Analytics</span>
+            </div>
+          </div>
+
+          <!-- Education -->
+          <div class="sidebar-section">
+            <div class="sidebar-heading">// EDUCATION</div>
+            <div class="cert-badge" style="flex-direction:column; align-items:flex-start; gap:3px;">
+              <span style="color:#f1f5f9; font-size:10px; font-weight:600;">BA · English</span>
+              <span style="color:#64748b; font-size:9px;">University of Tennessee · 2017</span>
+              <span style="color:var(--amber); font-size:8px;">Cum Laude · Rhetoric & Writing</span>
+            </div>
+          </div>
+
+        </div>
+        <!-- end sidebar -->
+
+        <!-- ── MAIN CONTENT ── -->
+        <div class="main-content">
+
+          <!-- Objective -->
+          <div class="objective-box">
+            <div class="objective-prompt">&gt; PROFILE.load()_</div>
+            <div class="objective-text">Hi, I'm Ian — an Operations Specialist with a background in business systems, automation, and customer experience. I design streamlined, scalable processes that improve both system performance and user experience. Passionate about connecting tools, teams, and data through smart, sustainable integration.</div>
+          </div>
+
+          <!-- Experience -->
+          <div class="section">
+            <div class="section-header">
+              <div class="section-tag">// EXPERIENCE</div>
+              <div class="section-line"></div>
+            </div>
+
+            <!-- Alkami -->
+            <div class="exp-card">
+              <div class="exp-header">
+                <div class="exp-role">SR PARTNER OPS SPECIALIST</div>
+                <div class="exp-dates">2025 — PRESENT</div>
+              </div>
+              <div class="exp-company">▸ ALKAMI TECHNOLOGY</div>
+              <div class="exp-desc">Lead cross-functional partner initiatives from charter to go-live, driving process improvements, automation, analytical insights, and operational scalability.</div>
+              <ul class="exp-bullets">
+                <li>Own partner-facing and internal Confluence documentation with full lifecycle management</li>
+                <li>Built and maintain internal & external Looker Studio dashboards tracking partner orders, products, and customers</li>
+                <li>Develop scripted apps to automate recurring operational workflows</li>
+              </ul>
+              <div class="tool-tags">
+                <span class="tool-tag">Looker Studio</span>
+                <span class="tool-tag">Confluence</span>
+                <span class="tool-tag">Automation</span>
+              </div>
+            </div>
+
+            <!-- Granicus -->
+            <div class="exp-card">
+              <div class="exp-header">
+                <div class="exp-role">SR BUSINESS SYSTEMS OPS SPECIALIST</div>
+                <div class="exp-dates">2022 — 2025</div>
+              </div>
+              <div class="exp-company">▸ GRANICUS</div>
+              <div class="exp-desc">Lead integrations and system automation across Sales, CX, Product, and Finance using iPaaS and API-driven workflows.</div>
+              <ul class="exp-bullets">
+                <li>Built and maintained end-to-end automations with Workato, Boomi, and Power Automate for Order to Cash, Revenue Recognition, and Support Transfers</li>
+                <li>Managed and supported end users in Salesforce, NetSuite, Wrike, OpenAir, Smartsheets, and Totango</li>
+                <li>Built dashboards and reports in Salesforce, Wrike Analyze, Power BI, and Excel</li>
+                <li>Jira and Teams-based sprint planning; Confluence documentation for technical and end users</li>
+              </ul>
+              <div class="exp-sub">*Previous Roles: CX Ops Specialist ('22) → Sr CX Ops Specialist ('24)</div>
+              <div class="tool-tags">
+                <span class="tool-tag">Workato</span>
+                <span class="tool-tag">Boomi</span>
+                <span class="tool-tag">Power Automate</span>
+                <span class="tool-tag">Salesforce</span>
+                <span class="tool-tag">NetSuite</span>
+                <span class="tool-tag">Power BI</span>
+                <span class="tool-tag">Jira</span>
+                <span class="tool-tag">Confluence</span>
+              </div>
+            </div>
+
+            <!-- State of NM -->
+            <div class="exp-card">
+              <div class="exp-header">
+                <div class="exp-role">BUSINESS OPERATIONS SPECIALIST</div>
+                <div class="exp-dates">2021 — 2022</div>
+              </div>
+              <div class="exp-company">▸ STATE OF NEW MEXICO</div>
+              <div class="exp-desc">Ensured state and federal compliance across partner agreements, procedures, and systems through the Partner Management Bureau.</div>
+              <ul class="exp-bullets">
+                <li>Managed partner onboarding, software implementation & training, and contract compliance</li>
+                <li>Conducted statewide audits and data-driven reporting on trends, support escalations, and procedural adherence</li>
+              </ul>
+            </div>
+
+            <!-- Niedlov's -->
+            <div class="exp-card">
+              <div class="exp-header">
+                <div class="exp-role">DIRECTOR OF OPERATIONS</div>
+                <div class="exp-dates">2017 — 2021</div>
+              </div>
+              <div class="exp-company">▸ NIEDLOV'S BAKERY</div>
+              <div class="exp-desc">Led operations at one of Southern Living's "Best of the South" bakeries — overseeing brick & mortar + web ops, labor systems, and team management.</div>
+              <ul class="exp-bullets">
+                <li>Averaged 20–50% growth with 4.8 customer ratings across all channels</li>
+                <li>Managed cost analyses, inventory, payroll, distributor contracting, and POS + Web systems</li>
+                <li>Created the "Café Passport" training program and authored Niedlov's Coffee Guide for product consistency and onboarding</li>
+              </ul>
+              <div class="exp-sub">*Previous Roles: CSR (2017) → Café Manager (2019)</div>
+            </div>
+
+          </div>
+          <!-- end section -->
+
+        </div>
+        <!-- end main content -->
+
+      </div>
+      <!-- end main layout -->
+
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <div class="status-bar-left">
+          <div class="status-item">
+            <div class="status-dot"></div>
+            <span>SYSTEMS ONLINE</span>
+          </div>
+          <span>·</span>
+          <span>CHATTANOOGA, TN</span>
+          <span>·</span>
+          <span>OPEN TO OPPORTUNITIES</span>
+        </div>
+        <span>SYNCDESK RESUME ENGINE v2026<span class="cursor-blink">▋</span></span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Vent holes -->
+<div class="monitor-vents" style="position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;gap:6px;"></div>
+
+</body>
+</html>
